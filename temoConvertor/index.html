@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VUEJS | Temo Convertor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <main id="app" class="container">
+        <form action="" @click.prevent="tempConvert">
+            <h1>Temp Convertor</h1>
+            <div class="row">
+                <div class="col-3">
+                    <input type="text" class="form-control" placeholder="Temp" v-model="inputTemp">
+                </div>
+                <div class="col-3">
+                    <select class="form-control" v-model="from">
+                        <option selected disabled>From</option>
+                        <option value="celsius">celsius</option>
+                        <option value="fahrenheit">fahrenheit</option>
+                        <option value="kelvin">kelvin</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select class="form-control" v-model="to">
+                        <option selected disabled>To</option>
+                        <option value="fahrenheit">fahrenheit</option>
+                        <option value="celsius">celsius</option>
+                        <option value="kelvin">kelvin</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                   <button class="btn btn-primary btn-block">Convert</button>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    Temp :
+                    {{finalTemp}}
+                </div>
+            </div>
+        </form>
+        
+    </main>
+
+
+
+    <script src="https://unpkg.com/vue@3" ></script>
+    <script>
+        const { createApp } = Vue
+        createApp({
+            data() {
+                return {
+                    finalTemp : null,
+                    inputTemp : '',
+                    from : '',
+                    to : ''
+                }
+            },
+            methods : {
+               tempConvert(){
+                switch(this.from){
+                    case "celsius" :
+                        if(this.to == "kelvin"){
+                            this.finalTemp = parseFloat(this.inputTemp) + 273.15 + ' ' + this.to;
+                        } else if(this.to == "fahrenheit") {
+                            this.finalTemp = (parseFloat(this.inputTemp)  * 1.8) + 32 + ' ' + this.to;
+                        }
+                        break;
+                    case "fahrenheit" :
+                        break;
+                    case "kelvin" :
+                        break;
+                }
+               }
+            },
+      
+
+        }).mount('#app')
+    </script> 
+</body>
+</html>

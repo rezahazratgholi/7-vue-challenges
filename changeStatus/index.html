@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VUEJS | Change Status</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  
+
+</head>
+<body>
+    <!-- IF & Else-If & Else-If -->
+    <main id="app" class="container">
+        <h1>Orders List</h1>
+        <table class="table table-striped">
+            <thead>
+                <th>#</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                <tr v-for="(order,index) in orders">
+                    <td>{{index + 1}}</td>
+                    <td>{{order.title}}</td>
+                    <td>${{order.price}}</td>
+                    <td>
+                        <span v-if="order.status == 2" class="badge badge-success badge-pill">Sent</span>
+                        <span v-else-if="order.status == 1" class="badge badge-warning badge-pill">Sending...</span>
+                        <span v-else class="badge badge-danger badge-pill">Pending...</span>
+                    </td>
+
+                    <td>
+                        <div v-if="order.status != 2" class="dropdown">
+                            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                              Change Status
+                            </button>
+                            <div class="dropdown-menu">
+                              <a @click="order.status = 0" class="dropdown-item" href="#">To Pending...</a>
+                              <a @click="orders[index].status = 1" class="dropdown-item" href="#">To Sending...</a>
+                              <a @click="orders[index].status = 2"  class="dropdown-item" href="#">To Sent</a>
+                            </div>
+                          </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3" ></script>
+    <script>
+        // 0 => Pending
+        // 1 => Sending
+        // 2 => Sent
+
+        const { createApp } = Vue
+        createApp({
+            data() {
+                return {
+                   orders : [
+                       {
+                           id : 1,
+                           title : 'iPhone 13',
+                           price : '895',
+                           status : 0
+                       },
+                       {
+                           id : 2,
+                           title : 'iMac',
+                           price : '1400',
+                           status : 1
+                       },
+                       {
+                           id : 3,
+                           title : 'Mackbook Pro',
+                           price : '1100',
+                           status : 2
+                       },
+                   ]
+                }
+            },
+        }).mount('#app')
+
+
+    </script> 
+</body>
+</html>

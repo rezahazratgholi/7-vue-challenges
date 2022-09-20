@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VUE3</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .slider-item{
+            display: none;
+        }
+        .slider-item.show{
+            display: block!important;
+        }
+    </style>
+</head>
+<body>
+    <main id="app">
+        <div class="container w-50">
+            <div class="slider-wrapper">
+                <div class="slider-item show ">
+                    <img src="./assets/images/2-nature.jpg" class="w-100">
+                </div>
+                <div class="slider-item ">
+                    <img src="./assets/images/file-20190917-19083-9zi9jy.avif" class="w-100">
+                </div>
+                <div class="slider-item ">
+                    <img src="./assets/images/image.jpg" class="w-100">
+                </div>
+                <div class="slider-item ">
+                    <img src="./assets/images/image_print.jpg" class="w-100">
+                </div>
+            </div>
+            <div class="slider-actions">
+                <button @click="prevSlide" class="btn btn-sm btn-outline-primary">
+                    Prev
+                </button>
+                <button @click="nextSlide" class="btn btn-sm btn-outline-primary">
+                    Next
+                </button>
+            </div>
+        </div>
+
+    </main>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const { createApp } = Vue
+        createApp({
+            data() {
+                return {
+                    fullname : '',
+                }
+            },
+            methods : {
+               prevSlide(event){
+                const currentSlide = document.querySelector('.slider-item.show');
+                let prevSlide = currentSlide.previousElementSibling;
+                currentSlide.classList.remove('show');
+                if(prevSlide){
+                    prevSlide.classList.add('show');
+                } else {
+                    let sliders = document.querySelectorAll('.slider-item');
+                    prevSlide = sliders[sliders.length - 1];
+                }
+                prevSlide.classList.add('show');
+               },
+               nextSlide(event){
+                const currentSlide = document.querySelector('.slider-item.show');
+                let nextSlide = currentSlide.nextElementSibling;
+                currentSlide.classList.remove('show');
+
+                if(nextSlide){
+                    nextSlide.classList.add('show');
+                } else {
+                    nextSlide = document.querySelectorAll('.slider-item')[0];
+                }
+                nextSlide.classList.add('show');
+                
+
+               }
+
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

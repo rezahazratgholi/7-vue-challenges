@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VUE3</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .slider-item{
+            position: relative;
+        }
+        .slider-item p {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(28, 28, 28, 0.706);
+            text-align: center;
+            color: white;
+            z-index: -1;
+            transition: 0.5s;
+        }
+        .slider-item:hover p{
+            z-index: 1!important;
+
+        }
+    </style>
+</head>
+<body>
+    <main id="app">
+        <div class="container w-50">
+            <div class="slider-wrapper">
+                <div class="slider-item show ">
+                    <img :src="activeSlide.image" class="w-100">
+                    <p v-text="activeSlide.description"></p>
+                </div>
+            </div>
+            <div class="slider-actions">
+                <button @click="prevSlide" class="btn btn-sm btn-outline-primary">
+                    Prev
+                </button>
+                <button @click="nextSlide" class="btn btn-sm btn-outline-primary">
+                    Next
+                </button>
+            </div>
+        </div>
+
+    </main>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+
+        const { createApp } = Vue
+        createApp({
+            data() {
+                return {
+                    sliders : [
+                        {
+                            image : './assets/images/2-nature.jpg',
+                            description : 'Descccnwiwqiwqicjwqcicwqi'
+                        },
+                        {
+                            image : './assets/images/file-20190917-19083-9zi9jy.avif',
+                            description : 'Descccnwiwqiwqicjwqcicwqi'
+                        },
+                        {
+                            image : './assets/images/image.jpg',
+                            description : 'D21412421escccnwiwqiwqicjwqcicwqi'
+                        },
+                        {
+                            image : './assets/images/image_print.jpg',
+                            description : 'De54343554scccnwiwqiwqicjwqcicwqi'
+                        },
+                    ],
+                    currentIndex : 0,
+                    activeSlide : {
+                        image : './assets/images/2-nature.jpg',
+                        description : 'dqwwdqdwq'
+                    },
+
+                }
+            },
+            
+            methods : {
+               prevSlide(){
+                if(this.currentIndex == 0){
+                    this.currentIndex = this.sliders.length - 1
+                } else {
+                    this.currentIndex--;
+                }
+                this.activeSlide = this.sliders[this.currentIndex];
+               },
+               nextSlide(){
+                   if(this.currentIndex == this.sliders.length - 1){
+                    this.currentIndex = 0
+                   } else {
+                    this.currentIndex++;
+                   }
+                this.activeSlide = this.sliders[this.currentIndex];
+               }
+
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
